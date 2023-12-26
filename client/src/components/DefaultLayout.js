@@ -94,6 +94,18 @@ const DefaultLayout = ({ children }) => {
             background: colorBgContainer,
           }}
         >
+          {/* 
+          <Button
+            type="text"
+            icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+            onClick={() => setCollapsed(!collapsed)}
+            style={{
+              fontSize: "16px",
+              width: 0,
+              height: 64,
+            }}
+          />
+          */}
           {React.createElement(
             collapsed ? MenuUnfoldOutlined : MenuFoldOutlined,
             {
