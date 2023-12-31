@@ -30,7 +30,7 @@ const ItemPage = () => {
     //eslint-disable-next-line
   }, []);
 
-  //handle deleet
+  //handle delete
   const handleDelete = async (record) => {
     try {
       dispatch({
@@ -59,6 +59,7 @@ const ItemPage = () => {
       ),
     },
     { title: "Price", dataIndex: "price" },
+    { title: "Quantity", dataIndex: "quantity" },
 
     {
       title: "Actions",
@@ -159,6 +160,14 @@ const ItemPage = () => {
               name="price"
               label="Price"
               rules={[{ required: true, message: "Please enter a price" }]}
+            >
+              <Input />
+            </Form.Item>
+
+            <Form.Item
+              name="quantity"
+              label="Quantity"
+              rules={[{ required: true, message: "Please enter a quantity" }]}
             >
               <Input />
             </Form.Item>

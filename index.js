@@ -14,6 +14,7 @@ connectDb();
 
 const app = express();
 
+//middlewares
 app.use(cors());
 app.use(express.json());
 app.use(bodyParser.json());
@@ -23,6 +24,8 @@ app.use(morgan('dev'));
 app.use('/api/items', itemRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/bills", billsRoutes);
+
+
 
 // static files
  app.use(express.static(path.join(__dirname,'./client/build'))) 

@@ -9,6 +9,7 @@ import {
   ShoppingCartOutlined,
   UnorderedListOutlined,
   UserOutlined,
+  PieChartOutlined
 } from "@ant-design/icons";
 import { Layout, Menu, theme } from "antd";
 import React, { useEffect, useState } from "react";
@@ -51,6 +52,13 @@ const DefaultLayout = ({ children }) => {
             onClick={() => navigate("/")}
           >
             Home
+          </Menu.Item>
+          <Menu.Item
+            key="/dashboard"
+            icon={<PieChartOutlined />}
+            onClick={() => navigate("/dashboard")}
+          >
+            Dashboard
           </Menu.Item>
           <Menu.Item
             key="/bills"
