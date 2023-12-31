@@ -9,6 +9,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import DefaultLayout from "../components/DefaultLayout";
+
 //import "../styles/CartPage.css";
 
 const CartPage = () => {
@@ -17,6 +18,7 @@ const CartPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { cartItems } = useSelector((state) => state.rootReducer);
+
 
   const handleIncrement = (record) => {
     dispatch({
@@ -114,6 +116,8 @@ const CartPage = () => {
       console.log(error);
     }
   };
+
+
   return (
     <DefaultLayout>
       <h1>Cart Page</h1>

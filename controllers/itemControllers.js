@@ -1,14 +1,4 @@
 const itemModel = require("../models/itemModels");
-import  braintree from "braintree";
-
-//payment getway 
-var gateway = new braintree.BraintreeGateway({
-  environment: braintree.Environment.Sandbox,
-  merchantId: process.env.BRAINTREE_MERCHAND_ID,
-  publicKey: process.env.BRAINTREE_PUBLIC_KEY,
-  privateKey: process.env.BRAINTREE_PRIVATE_KEY,
-});
-
 
 
 // get items
@@ -61,6 +51,8 @@ const deleteItemController = async (req, res) => {
     console.log(error);
   }
 };
+
+
 
 module.exports = {
   getItemController,
