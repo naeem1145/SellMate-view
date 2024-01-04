@@ -65,6 +65,7 @@ const BillsPage = () => {
         </div>
       ),
     },
+
   ];
   console.log(selectedBill);
   return (

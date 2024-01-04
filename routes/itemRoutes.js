@@ -5,8 +5,10 @@ const {
   editItemController,
   deleteItemController,
 } = require("./../controllers/itemControllers");
+const {paymentsController} = require("./../controllers/billsController");
 
 const router = express.Router();
+
 
 //routes
 //Method - get
@@ -21,5 +23,8 @@ router.put("/edit-item", editItemController);
 //method - DELETE
 router.post("/delete-item", deleteItemController);
 
+//! accept payments
+router.post('/payments', paymentsController)
 
-module.exports = router;
+
+ module.exports = router; 

@@ -31,7 +31,7 @@ const Dashboard = () => {
     <DefaultLayout>
       <Row gutter={16}>
         <Col span={6}>
-          <Card title="Total Customers" bordered={false}>
+          <Card title="Total Customers" bordered={false} value= {totalCustomers}>
             <p>{totalCustomers}</p>
           </Card>
         </Col>
@@ -52,6 +52,7 @@ const Dashboard = () => {
         </Col>
         
       </Row>
+
     </DefaultLayout>
   );
 };

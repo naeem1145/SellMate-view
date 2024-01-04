@@ -8,6 +8,9 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import ItemPage from './pages/itemPage';
 import Dashboard from "./pages/Dashboard";
+import Sucess from "./pages/sucess";
+import Cancel from "./pages/Cancel";
+
 
 function App() {
   return (
@@ -64,6 +67,9 @@ function App() {
           />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route  path='/sucess' element={<Sucess />}/>
+          <Route  path='/cancel' element={<Cancel />}/>
+          
         </Routes>
       </BrowserRouter>
     </>

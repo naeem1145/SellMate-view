@@ -1,0 +1,14 @@
+const express = require("express");
+const { paymentsController } = require("../controllers/itemControllers");
+
+//router object
+const router = express.Router();
+
+
+// accept payments
+router.post('/payments', loginController, paymentsController)
+
+
+
+
+module.exports = router;

@@ -1,0 +1,20 @@
+// server/services/stripeService.js
+const stripe = require("stripe")("sk_test_51OT6F9SImV0j2R5wVMQyQ8ad9QdbjLLORLl7J5oYIJsTA2v7TzYQ4fXnkt5Jsnmv8z7TW3oyHicNA1tZKjsxX58s00GJFZQrtL");
+
+const stripeService = {
+  createPaymentIntent: async (amount, currency) => {
+    try {
+      const paymentIntent = await stripe.paymentIntents.create({
+        amount,
+        currency,
+      });
+
+      return paymentIntent.client_secret;
+    } catch (error) {
+      console.error("Error creating PaymentIntent:", error);
+      throw error;
+    }
+  },
+};
+
+module.exports = stripeService;

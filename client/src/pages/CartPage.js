@@ -9,6 +9,9 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import DefaultLayout from "../components/DefaultLayout";
+import { loadStripe } from '@stripe/stripe-js';
+
+
 
 //import "../styles/CartPage.css";
 
@@ -20,7 +23,8 @@ const CartPage = () => {
   const { cartItems } = useSelector((state) => state.rootReducer);
 
 
-  const handleIncrement = (record) => {
+
+  function handleIncrement(record) {
     dispatch({
       type: "UPDATE_CART",
       payload: {
@@ -28,7 +32,7 @@ const CartPage = () => {
         quantity: record.quantity + 1,
       },
     });
-  };
+  }
 
   const handleDecrement = (record) => {
     if (record.quantity > 1) {
@@ -94,6 +98,8 @@ const CartPage = () => {
     setSubTotal(temp);
   }, [cartItems]);
 
+ 
+
   //handleSubmit
   const handleSubmit = async (value) => {
     try {
@@ -116,6 +122,76 @@ const CartPage = () => {
       console.log(error);
     }
   };
+  // payment integration
+  /* const handleCheckout = async () => {
+    try {
+      // Check if the selected payment method is 'card'
+      const selectedPaymentMethod = Form.getFieldValue('paymentMethode');
+
+      if (selectedPaymentMethod === 'card') {
+        const body = {
+          products: cartItems,
+        };
+
+        const headers = {
+          'Content-Type': 'application/json',
+        };
+
+        const response = await fetch('http://localhost:4001/api/create-checkout-session', {
+          method: 'POST',
+          headers: headers,
+          body: JSON.stringify(body),
+        });
+
+        const session = await response.json();
+
+        const stripe = await loadStripe('process.env.STRIPE_PUBLISH_KEY');
+        const result = await stripe.redirectToCheckout({
+          sessionId: session.id,
+        });
+
+        if (result.error) {
+          console.log(result.error);
+        }
+      } else {
+        // Handle other payment methods or display a message
+        console.log('Selected payment method is not "card".');
+      }
+    } catch (error) {
+      console.error(error);
+    }
+
+  } */
+
+   //! payment integration
+   const makePayment = async()=>{
+    const stripe = await loadStripe("pk_test_51OTohFDOydqiFLUW5rblYP2kzhOpiLYcLqXmpSVRQxtoyJlk8agnytKAqd0kcY3h1z9Rj5e6B1NEjXUmcyMYjLxi00LCNplO38");
+
+    const body = {
+        products: cartItems
+    }
+    const headers = {
+        "Content-Type":"application/json",
+        /* 'Authorization': `Bearer ${process.env.STRIPE_SECRET_KEY}`, */
+    }
+    const response = await fetch("http://localhost:4001/api/create-checkout-session",{
+        method:"POST",
+        headers:headers,
+        body:JSON.stringify(body)
+    });
+
+    const session = await response.json();
+
+    const result = stripe.redirectToCheckout({
+        sessionId:session.id
+    });
+    
+    if(result.error){
+        console.log(result.error);
+    }
+}
+
+
 
 
   return (
@@ -130,6 +206,7 @@ const CartPage = () => {
         <Button type="primary" onClick={() => setBillPopup(true)}>
           Create Invoice
         </Button>
+         
       </div>
       <Modal
         title="Create Invoice"
@@ -155,11 +232,9 @@ const CartPage = () => {
           </Form.Item>
 
           <Form.Item
-            name="paymentMode"
-            label="Payment Method"
-            rules={[
-              { required: true, message: "Please select payment method" },
-            ]}
+            name="paymentMethode"
+            label="Payment Methode"
+            rules={[{ required: true, message: "Please Enter Payment Option" }]}
           >
             <Select>
               <Select.Option value="cash">Cash</Select.Option>
@@ -185,6 +260,9 @@ const CartPage = () => {
             <Button type="primary" htmlType="submit">
               Generate Bill
             </Button>
+            <Button type="primary" onClick={makePayment} >
+              Pay
+            </Button>
           </div>
         </Form>
       </Modal>
@@ -192,4 +270,4 @@ const CartPage = () => {
   );
 };
 
-export default CartPage;
+export default CartPage ;

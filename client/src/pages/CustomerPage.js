@@ -3,7 +3,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import DefaultLayout from "../components/DefaultLayout";
-const CutomerPage = () => {
+const CutomerPage = ( ) => {
   const [billsData, setBillsData] = useState([]);
   const dispatch = useDispatch();
   const getAllBills = async () => {
@@ -26,6 +26,8 @@ const CutomerPage = () => {
     //eslint-disable-next-line
   }, []);
 
+ 
+
   const columns = [
     { title: "ID", dataIndex: "_id" },
     { title: "Cutomer Name", dataIndex: "customerName"},
@@ -42,6 +44,7 @@ const CutomerPage = () => {
         bordered
         pagination={false}
       />
+      
     </DefaultLayout>
   );
 };
