@@ -9,9 +9,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import DefaultLayout from "../components/DefaultLayout";
-import { loadStripe } from '@stripe/stripe-js';
-
-
+import { loadStripe } from "@stripe/stripe-js";
 
 //import "../styles/CartPage.css";
 
@@ -21,7 +19,8 @@ const CartPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { cartItems } = useSelector((state) => state.rootReducer);
-
+  const [selectedPaymentMethod, setSelectedPaymentMethod] = useState('cash'); // Default to 'cash'
+  const [paymentSuccess, setPaymentSuccess] = useState(false); // New state
 
 
   function handleIncrement(record) {
@@ -98,8 +97,6 @@ const CartPage = () => {
     setSubTotal(temp);
   }, [cartItems]);
 
- 
-
   //handleSubmit
   const handleSubmit = async (value) => {
     try {
@@ -122,77 +119,48 @@ const CartPage = () => {
       console.log(error);
     }
   };
-  // payment integration
-  /* const handleCheckout = async () => {
-    try {
-      // Check if the selected payment method is 'card'
-      const selectedPaymentMethod = Form.getFieldValue('paymentMethode');
 
-      if (selectedPaymentMethod === 'card') {
-        const body = {
-          products: cartItems,
-        };
+  const handlePaymentMethodChange = (value) => {
+    setSelectedPaymentMethod(value);
+  };
 
-        const headers = {
-          'Content-Type': 'application/json',
-        };
+  const makePayment = async () => {
 
-        const response = await fetch('http://localhost:4001/api/create-checkout-session', {
-          method: 'POST',
-          headers: headers,
-          body: JSON.stringify(body),
-        });
-
-        const session = await response.json();
-
-        const stripe = await loadStripe('process.env.STRIPE_PUBLISH_KEY');
-        const result = await stripe.redirectToCheckout({
-          sessionId: session.id,
-        });
-
-        if (result.error) {
-          console.log(result.error);
-        }
-      } else {
-        // Handle other payment methods or display a message
-        console.log('Selected payment method is not "card".');
-      }
-    } catch (error) {
-      console.error(error);
-    }
-
-  } */
-
-   //! payment integration
-   const makePayment = async()=>{
-    const stripe = await loadStripe("pk_test_51OTohFDOydqiFLUW5rblYP2kzhOpiLYcLqXmpSVRQxtoyJlk8agnytKAqd0kcY3h1z9Rj5e6B1NEjXUmcyMYjLxi00LCNplO38");
+    if(selectedPaymentMethod === 'card') { 
+    try { 
+    const stripe = await loadStripe(
+      "pk_test_51OTohFDOydqiFLUW5rblYP2kzhOpiLYcLqXmpSVRQxtoyJlk8agnytKAqd0kcY3h1z9Rj5e6B1NEjXUmcyMYjLxi00LCNplO38"
+    );
 
     const body = {
-        products: cartItems
-    }
+      products: cartItems,
+    };
     const headers = {
-        "Content-Type":"application/json",
-        /* 'Authorization': `Bearer ${process.env.STRIPE_SECRET_KEY}`, */
-    }
-    const response = await fetch("http://localhost:4001/api/create-checkout-session",{
-        method:"POST",
-        headers:headers,
-        body:JSON.stringify(body)
-    });
+      "Content-Type": "application/json",
+    };
+      const response = await fetch(
+        "http://localhost:4001/api/create-checkout-session",
+        {
+          method: "POST",
+          headers: headers,
+          body: JSON.stringify(body),
+        }
+      );
 
-    const session = await response.json();
+      const session = await response.json();
 
-    const result = stripe.redirectToCheckout({
-        sessionId:session.id
-    });
-    
-    if(result.error){
+      const result = stripe.redirectToCheckout({
+        sessionId: session.id,
+      });
+
+      if (result.error) {
         console.log(result.error);
+      }
+    } catch (error) {
+      console.error("Error during fetch:", error);
     }
-}
-
-
-
+  }
+};
 
   return (
     <DefaultLayout>
@@ -206,7 +174,6 @@ const CartPage = () => {
         <Button type="primary" onClick={() => setBillPopup(true)}>
           Create Invoice
         </Button>
-         
       </div>
       <Modal
         title="Create Invoice"
@@ -236,11 +203,18 @@ const CartPage = () => {
             label="Payment Methode"
             rules={[{ required: true, message: "Please Enter Payment Option" }]}
           >
-            <Select>
+            <Select onChange={handlePaymentMethodChange}>
               <Select.Option value="cash">Cash</Select.Option>
               <Select.Option value="card">Card</Select.Option>
             </Select>
           </Form.Item>
+         
+            {selectedPaymentMethod === 'card' && !paymentSuccess ? (
+              <Button type="primary" onClick={makePayment}>
+                Pay
+              </Button>
+            ) : null}
+        
 
           <div className="bill-it">
             <h5>
@@ -260,9 +234,7 @@ const CartPage = () => {
             <Button type="primary" htmlType="submit">
               Generate Bill
             </Button>
-            <Button type="primary" onClick={makePayment} >
-              Pay
-            </Button>
+          
           </div>
         </Form>
       </Modal>
@@ -270,4 +242,4 @@ const CartPage = () => {
   );
 };
 
-export default CartPage ;
+export default CartPage;

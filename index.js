@@ -9,7 +9,7 @@ const userRoutes = require('./routes/userRoute');
 const billsRoutes = require('./routes/billsRoute');
 const path = require("path");
 const app = express();
-const  stripe  = require('stripe')(process.env.STRIPE_SECRET_KEY);
+const  stripe  = require('stripe')("sk_test_51OTohFDOydqiFLUWbucp8sjgvilWpjoXwWoPuXW0w3FcPOk0tvVe6agq8Gf0HySDpBVTvIYeiRHKzPxC6YxmUzN900e6sDJXOj");
 
 
 dotenv.config();
@@ -53,13 +53,14 @@ app.post("/api/create-checkout-session",async(req,res)=>{
       payment_method_types:["card"],
       line_items:lineItems,
       mode:"payment",
-      success_url:"http://localhost:3000/sucess",
-      cancel_url:"http://localhost:3000/cancel",
+      success_url:"http://localhost:4001/sucess",
+      cancel_url:"http://localhost:4001/cancel",
   });
 
   res.json({id:session.id})
 
 })
+
 
  //! static files
  app.use(express.static(path.join(__dirname,'./client/build'))) 
