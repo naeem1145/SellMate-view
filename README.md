@@ -100,6 +100,5 @@ The client utilizes Axios to make HTTP requests to the server-side API.
 - Node.js - JavaScript runtime environment for building scalable server-side applications
 - Bcrypt - Password hashing library for secure password storage
 
-## Live Link
-The live project: [POSView](https://pos-view.vercel.app/login)
+
 
