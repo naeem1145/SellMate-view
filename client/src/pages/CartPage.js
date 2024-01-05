@@ -21,7 +21,7 @@ const CartPage = () => {
   const { cartItems } = useSelector((state) => state.rootReducer);
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState('cash'); // Default to 'cash'
   const [paymentSuccess, setPaymentSuccess] = useState(false); // New state
-
+ 
 
   function handleIncrement(record) {
     dispatch({
@@ -43,6 +43,13 @@ const CartPage = () => {
         },
       });
     }
+  };
+
+  //!Handle Clear Cart  button 
+  const clearCart = () => {
+    dispatch({
+      type: "CLEAR_CART",
+    });
   };
 
   const columns = [
@@ -164,7 +171,12 @@ const CartPage = () => {
 
   return (
     <DefaultLayout>
-      <h1>Cart Page</h1>
+      <div className="d-flex justify-content-between">
+      <h1>Cart Page</h1>  
+      <Button type="primary"  onClick={clearCart} danger>
+          Clear Cart
+      </Button>
+      </div>
       <Table columns={columns} dataSource={cartItems} bordered />
       <div className="d-flex flex-column align-items-end">
         <hr />

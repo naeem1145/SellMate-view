@@ -6,7 +6,6 @@ import DefaultLayout from './../components/DefaultLayout';
 
 const Dashboard = () => {
   const [totalCustomers, setTotalCustomers] = useState(0);
-  const [totalRevenue, setTotalRevenue] = useState(0);
   const [totalProducts, setTotalProducts] = useState(0);
   const [totalSales, setTotalSales] = useState(0);
 
@@ -14,9 +13,8 @@ const Dashboard = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get('/api/dashboard'); // Replace with your actual API endpoint
-        const { totalCustomers, totalRevenue, totalProducts, totalSales } = response.data;
+        const { totalCustomers, totalProducts, totalSales } = response.data;
         setTotalCustomers(totalCustomers);
-        setTotalRevenue(totalRevenue);
         setTotalProducts(totalProducts);
         setTotalSales(totalSales);
       } catch (error) {
@@ -45,11 +43,11 @@ const Dashboard = () => {
             <p>{totalSales}</p>
           </Card>
         </Col>
-        <Col span={6}>
+        {/* <Col span={6}>
           <Card title="Total Revenue" bordered={false}>
             <p>{totalRevenue}</p>
           </Card>
-        </Col>
+        </Col> */}
         
       </Row>
 

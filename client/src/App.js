@@ -8,7 +8,7 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import ItemPage from './pages/itemPage';
 import Dashboard from "./pages/Dashboard";
-import Sucess from "./pages/sucess";
+import Sucess from "./pages/Sucess";
 import Cancel from "./pages/Cancel";
 
 
