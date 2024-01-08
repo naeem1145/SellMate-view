@@ -1,0 +1,16 @@
+// StripeContainer.js
+import { loadStripe } from "@stripe/stripe-js";
+import { Elements } from "@stripe/react-stripe-js";
+import CheckoutForm from "./CheckoutForm";
+
+const stripePromise = loadStripe("pk_test_51OT6F9SImV0j2R5wAjexMxziWpKGT1Zd2k6beoPazzNdZE9S2fIxjIQnytVyZntyzsgQewFJvaTiSTPqXvlVd6WM001hv3lM7v");
+
+const StripeContainer = () => {
+  return (
+    <Elements stripe={stripePromise}>
+      <CheckoutForm />
+    </Elements>
+  );
+};
+
+export default StripeContainer;

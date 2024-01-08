@@ -1,0 +1,32 @@
+// stripeController.js
+const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
+
+const createCheckoutSession = async (req, res) => {
+  try {
+    const { products } = req.body;
+
+    const session = await stripe.checkout.sessions.create({
+      payment_method_types: ["card"],
+      line_items: products.map((product) => ({
+        price_data: {
+          currency: "usd",
+          product_data: {
+            name: product.name,
+          },
+          unit_amount: product.price * 100, // Stripe uses cents
+        },
+        quantity: product.quantity,
+      })),
+      mode: "payment",
+      success_url: "http://localhost:3000/success", // Replace with your success URL
+      cancel_url: "http://localhost:3000/cancel", // Replace with your cancel URL
+    });
+
+    res.json({ id: session.id });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Internal Server Error");
+  }
+};
+
+module.exports = { createCheckoutSession };

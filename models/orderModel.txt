@@ -1,0 +1,28 @@
+const mongoose = require('mongoose');
+
+const orderSchema = new mongoose.Schema(
+    {
+    products: [
+        {
+            type: mongoose.ObjectId,
+            ref: "Product",
+        },
+    ],
+    Payment: {},
+    buyer: {
+        type: mongoose.ObjectId, 
+        ref: "User"
+    }, 
+    status : {
+        type : String ,
+        default : "not process", 
+        enum: ["NOt Process", "Processing","Shipped", "deliverd", "cancel"],
+    },
+    }, 
+    
+    {timestamps: true} 
+);
+
+const Order = mongoose.model('Order', orderSchema);
+
+module.exports = Order;
