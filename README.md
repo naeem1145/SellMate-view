@@ -4,46 +4,12 @@ POSView is a web application built using the MERN stack, which includes MongoDB,
 
 ## Project View
 
-- **Homepage**
-<p align="center">
-  <img alt="img-name" src="Images/Homepage.png" width="700">
-</p>
-
-- **Bills**
-<p align="center">
-  <img alt="img-name" src="Images/Bills.png" width="700">
-</p>
-
-- **Items**
-<p align="center">
-  <img alt="img-name" src="Images/Items.png" width="700">
-</p>
-
-- **Add New Item**
-<p align="center">
-  <img alt="img-name" src="Images/Add New Item .png" width="700">
-</p>
-
-- **Customers**
-<p align="center">
-  <img alt="img-name" src="Images/Customers.png" width="700">
-</p>
-
-- **Cart**
-<p align="center">
-  <img alt="img-name" src="Images/Cart.png" width="700">
-</p>
-
-- **Invoice**
-<p align="center">
-  <img alt="img-name" src="Images/Invoice Details.png" width="700">
-</p>
-
+- 
 ## Installation
 
 - Clone the project from the GitHub repository: 
 
-       git clone https://github.com/OviSarkar62/POSView.git
+       git clone 
     
 - Navigate to the project directory: 
 
@@ -100,5 +66,22 @@ The client utilizes Axios to make HTTP requests to the server-side API.
 - Node.js - JavaScript runtime environment for building scalable server-side applications
 - Bcrypt - Password hashing library for secure password storage
 
+
+
+
+
+
+
+
+
+//cartpage handlesubmit function
+ // console.log(newObject);
+      await axios.post("/api/bills/add-bills", newObject);
+      message.success("Bill Generated");
+      navigate("/bills");
+    } catch (error) {
+      message.error("Something went wrong");
+      console.log(error);
+    }
 
 

@@ -117,14 +117,25 @@ const CartPage = () => {
         ),
         userId: JSON.parse(localStorage.getItem("user"))._id,
       };
-      // console.log(newObject);
-      await axios.post("/api/bills/add-bills", newObject);
+     // Send a request to add a bill
+    const response = await axios.post("/api/bills/add-bills", newObject);
+
+    // Handle the response appropriately (check for success status)
+    if (response.status === 200) {
+      // Display a success message
       message.success("Bill Generated");
+
+      // Navigate to the /bills page
       navigate("/bills");
-    } catch (error) {
-      message.error("Something went wrong");
-      console.log(error);
+    } else {
+      // Display an error message
+      message.error("Failed to generate the bill");
     }
+  } catch (error) {
+    // Log the error and display an error message
+    console.error("Error creating bill:", error);
+    message.error("Something went wrong");
+  }
   };
 
   const handlePaymentMethodChange = (value) => {
@@ -211,7 +222,7 @@ const CartPage = () => {
           </Form.Item>
 
           <Form.Item
-            name="paymentMethode"
+            name="paymentMode"
             label="Payment Methode"
             rules={[{ required: true, message: "Please Enter Payment Option" }]}
           >

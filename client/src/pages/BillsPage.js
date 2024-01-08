@@ -91,7 +91,7 @@ const BillsPage = () => {
           <div id="invoice-POS" ref={componentRef}>
             <center id="top">
               <div className="info">
-                <h2>HaLKA Food Cafe</h2>
+                <h2>MamaMiya Food Cafe</h2>
                 <p> <br/> Dhaka, Bangladesh </p>
               </div>
               {/*End Info*/}
