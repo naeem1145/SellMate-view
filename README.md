@@ -1,10 +1,8 @@
-# POSView
+#SellMate-view
 
-POSView is a web application built using the MERN stack, which includes MongoDB, Express, React, and Node.js. This application is designed to serve as a point of sale (POS) system, allowing users to manage products, customers, and sales.
+SellMate-view is a web application built using the MERN stack, which includes MongoDB, Express, React, and Node.js. This application is designed to serve as a point of sale (POS) system, allowing users to manage products, customers, and sales.
 
-## Project View
 
-- 
 ## Installation
 
 - Clone the project from the GitHub repository: 
