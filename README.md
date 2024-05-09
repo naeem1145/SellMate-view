@@ -11,7 +11,7 @@ SellMate-view is a web application built using the MERN stack, which includes Mo
     
 - Navigate to the project directory: 
 
-       cd POSView
+       cd SellMate-view
     
 - Install the dependencies for the server: 
 
